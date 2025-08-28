@@ -22,7 +22,6 @@ func main() {
 	routes.RegisterAuthRoutes(r)
 	routes.RegisterPostRoutes(r)
 	routes.RegisterProfileRoutes(r)
-	routes.RegisterTagsRoutes(r)
 
 	r.Run(":" + PORT)
 }

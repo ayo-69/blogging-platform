@@ -12,7 +12,6 @@ func RegisterPostRoutes(r *gin.Engine) {
 		postRoutes.GET("/", controllers.GetPosts)
 		postRoutes.GET("/:id", controllers.GetPostByID)
 		postRoutes.GET("/user/:id", controllers.GetPostsByUserID)
-		postRoutes.GET("/tag/:tag", controllers.AddTag)
 		postRoutes.PUT("/:id", controllers.UpdatePostByID)
 		postRoutes.DELETE("/:id", controllers.DeletePostByID)
 	}

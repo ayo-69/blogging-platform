@@ -20,5 +20,8 @@ func ConnectDB() {
 	log.Println("Connected to database")
 
 	// Migrate the database schema
-	DB.AutoMigrate(&models.Post{}, &models.User{}, &models.Tag{})
+	err = DB.AutoMigrate(&models.Post{})
+	if err != nil {
+		log.Fatal("Failed to migrate database schema")
+	}
 }
