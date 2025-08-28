@@ -1,0 +1,5 @@
+package middlware
+
+func AuthMiddlware() {
+
+}
