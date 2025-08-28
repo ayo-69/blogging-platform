@@ -20,11 +20,13 @@ func AddPost(c *gin.Context) {
 		return
 	}
 
+	userID := c.GetString("userID")
+
 	// Create a new post
 	newPost := models.Post{
 		Title:   userInput.Title,
 		Content: userInput.Content,
-		UserID:  "1",
+		UserID:  userID,
 	}
 
 	// Save the post to the database
@@ -68,8 +70,9 @@ func GetPostsByUserID(c *gin.Context) {
 }
 
 func UpdatePostByID(c *gin.Context) {
+	userID := c.GetString("user_id")
 	var updatePost models.Post
-	if err := database.DB.Where("id = ?", c.Param("id")).First(&updatePost).Error; err != nil {
+	if err := database.DB.Where("id = ? AND user_id = ?", c.Param("id"), userID).First(&updatePost).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
@@ -91,8 +94,9 @@ func UpdatePostByID(c *gin.Context) {
 	c.JSON(http.StatusOK, updatePost)
 }
 func DeletePostByID(c *gin.Context) {
+	userID := c.GetString("user_id")
 	var post models.Post
-	if err := database.DB.Where("id = ?", c.Param("id")).First(&post).Error; err != nil {
+	if err := database.DB.Where("id = ? AND user_id = ?", c.Param("id"), userID).First(&post).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
