@@ -104,8 +104,8 @@ func DeleteUser(c *gin.Context) {
 func UpdateUser(c *gin.Context) {
 	userID := c.Param("id")
 
-	user := models.User{}
-	if err := database.DB.Where("id = ?", userID).First(&user).Error; err != nil {
+	userModel := models.User{}
+	if err := database.DB.Where("id = ?", userID).First(&userModel).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
@@ -116,10 +116,10 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 
-	if err := database.DB.Model(&user).Updates(updatedUser).Error; err != nil {
+	if err := database.DB.Model(&userModel).Updates(updatedUser).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "User updated successfully", "user": user})
+	c.JSON(http.StatusOK, gin.H{"message": "User updated successfully", "user": userModel})
 }
