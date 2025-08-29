@@ -1,10 +1,16 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/ayo-69/blogging-platform/controllers"
+	"github.com/gin-gonic/gin"
+)
 
 func RegisterProfileRoutes(r *gin.Engine) {
-	profileRoues := r.Group("/user")
+	profileRoutes := r.Group("/profile")
 	{
-		profileRoues.GET("/:user_id")
+		profileRoutes.GET("/:id", controllers.GetProfileByID)
+		profileRoutes.GET("/user/:id", controllers.GetProfileByUserID)
+		profileRoutes.PUT("/:id", controllers.UpdateProfileByID)
+		profileRoutes.DELETE("/:id", controllers.DeleteProfileByID)
 	}
 }
